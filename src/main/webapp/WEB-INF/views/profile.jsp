@@ -94,7 +94,7 @@
 
         <div class="text-end">
             <button type="submit" class="btn btn-primary">저장</button>
-            <a href="index.jsp" class="btn btn-secondary">취소</a>
+            <a href="/" class="btn btn-secondary">취소</a>
         </div>
     </form>
 </div>

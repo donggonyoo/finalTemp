@@ -67,8 +67,8 @@
     <!-- 사이드바 -->
     <div class="col-md-2 sidebar">
       <ul class="nav flex-column nav-pills" id="sidebarMenu" role="tablist">
-        <li class="nav-item"><a class="nav-link active" id="tab-home" data-bs-toggle="pill" href="#content-home" role="tab">홈</a></li>
-        <li class="nav-item"><a class="nav-link" id="tab-info" data-bs-toggle="pill" href="#content-info" role="tab">개인정보</a></li>
+        <li class="nav-item"><a class="nav-link active" id="tab-home"  href="#" role="tab">홈</a></li>
+        <li class="nav-item"><a class="nav-link" id="tab-info"  href="profile" role="tab">개인정보</a></li>
         <li class="nav-item"><a class="nav-link" id="tab-notice"  href="board/noticeList" role="tab">공지사항</a></li>
           <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#boardMenu" role="button" aria-expanded="false" aria-controls="boardMenu">게시판 ▾</a>

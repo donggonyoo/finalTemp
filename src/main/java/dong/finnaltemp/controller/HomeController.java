@@ -16,4 +16,8 @@ public class HomeController {
     public String calendar(){
         return "calendar";
     }
+    @GetMapping("/profile")
+    public String profile(){
+        return "profile";
+    }
 }
