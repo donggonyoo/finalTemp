@@ -17,6 +17,7 @@ public class DraftController {
     public String draftForm() {
         return "draft/draftForm";
     }
+    //하하
     @GetMapping("draftList")
     public String draftList() {
         return "draft/draftList";
