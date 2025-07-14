@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>캘린더 관리 - LDBSOFT 그룹웨어</title>
+  <title>캘린더 조회 - LDBSOFT 그룹웨어</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.css" rel="stylesheet">
   <style>
@@ -20,42 +20,39 @@
 <body>
 
 <div class="container">
-  <h2 class="mb-4">📅 캘린더 관리</h2>
+  <h2 class="mb-4">📅 캘린더 조회</h2>
   <div id="calendar"></div>
 </div>
 
-<!-- 일정 상세/수정 모달 -->
+<!-- 일정 보기 모달 -->
 <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="eventForm">
+      <form>
         <div class="modal-header">
           <h5 class="modal-title">일정 정보</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <input type="hidden" id="eventId">
+          <input type="hidden" id="eventId" readonly>
           <div class="mb-3">
             <label for="eventTitle" class="form-label">제목</label>
-            <input type="text" class="form-control" id="eventTitle" required>
+            <input type="text" class="form-control" id="eventTitle" readonly>
           </div>
           <div class="mb-3">
             <label for="eventContent" class="form-label">내용</label>
-            <textarea class="form-control" id="eventContent" rows="3"></textarea>
+            <textarea class="form-control" id="eventContent" rows="3" readonly></textarea>
           </div>
           <div class="mb-3">
             <label for="eventStart" class="form-label">시작일</label>
-            <input type="date" class="form-control" id="eventStart" required>
+            <input type="date" class="form-control" id="eventStart" readonly>
           </div>
           <div class="mb-3">
             <label for="eventEnd" class="form-label">종료일</label>
-            <input type="date" class="form-control" id="eventEnd">
+            <input type="date" class="form-control" id="eventEnd" readonly>
           </div>
         </div>
-        <!-- 이부분을 관리자 혹은 수정권한이 있는사람만 보이게끔하고 위에 텍스트상자도 권한이 없다면 모두 readonly처리할것-->
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">수정</button>
-          <button type="button" class="btn btn-danger" id="deleteEventBtn">삭제</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
         </div>
       </form>
@@ -69,7 +66,6 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
-    var currentEvent = null;
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
@@ -101,12 +97,12 @@
         }
       ],
       eventClick: function(info) {
-        currentEvent = info.event;
-        document.getElementById('eventId').value = currentEvent.id;
-        document.getElementById('eventTitle').value = currentEvent.title;
-        document.getElementById('eventContent').value = currentEvent.extendedProps.content || '';
-        document.getElementById('eventStart').value = currentEvent.startStr;
-        document.getElementById('eventEnd').value = currentEvent.endStr || '';
+        const event = info.event;
+        document.getElementById('eventId').value = event.id;
+        document.getElementById('eventTitle').value = event.title;
+        document.getElementById('eventContent').value = event.extendedProps.content || '';
+        document.getElementById('eventStart').value = event.startStr;
+        document.getElementById('eventEnd').value = event.endStr || '';
 
         var modal = new bootstrap.Modal(document.getElementById('eventModal'));
         modal.show();
@@ -114,32 +110,6 @@
     });
 
     calendar.render();
-
-    // 수정 이벤트 처리
-    document.getElementById('eventForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (!currentEvent) return;
-
-      currentEvent.setProp('title', document.getElementById('eventTitle').value);
-      currentEvent.setExtendedProp('content', document.getElementById('eventContent').value);
-      currentEvent.setStart(document.getElementById('eventStart').value);
-      const endVal = document.getElementById('eventEnd').value;
-      if (endVal) {
-        currentEvent.setEnd(endVal);
-      } else {
-        currentEvent.setEnd(null);
-      }
-
-      bootstrap.Modal.getInstance(document.getElementById('eventModal')).hide();
-    });
-
-    // 삭제 이벤트 처리
-    document.getElementById('deleteEventBtn').addEventListener('click', function () {
-      if (currentEvent && confirm('정말 삭제하시겠습니까?')) {
-        currentEvent.remove();
-        bootstrap.Modal.getInstance(document.getElementById('eventModal')).hide();
-      }
-    });
   });
 </script>
 </body>

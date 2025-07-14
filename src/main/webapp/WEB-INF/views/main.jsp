@@ -94,19 +94,12 @@
             <ul class="nav flex-column">
               <li class="nav-item"><a class="nav-link" id="tab-vehicle" href="reservation/vehicleList" role="tab">차량예약</a></li>
               <li class="nav-item"><a class="nav-link" id="tab-room"  href="reservation/meetingRoomList" role="tab">회의실예약</a></li>
+              <li class="nav-item"><a class="nav-link" id="tab-item"  href="reservation/itemList" role="tab">비품예약</a></li>
               <li class="nav-item"><a class="nav-link" id="tab-reservation"  href="reservation/reservationList" role="tab">내 예약내역</a></li>
             </ul>
           </div>
         </li>
-        <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#CalendarMenu" role="button" aria-expanded="false" aria-controls="facilitySubMenu">캘린더 ▾</a>
-         <div class="collapse ps-3" id="CalendarMenu">
-            <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" id="tab-calendar" href="calendar" role="tab">캘린더조회</a></li>
-              <li class="nav-item"><a class="nav-link" id="tab-calendar" data-bs-toggle="pill" href="#content-calendarRegist" role="tab">일정등록</a></li>              
-            </ul>
-          </div>
-          </li>
+           <li class="nav-item"><a class="nav-link" id="tab-calendar" href="calendar" role="tab">캘린더</a></li>
         <li class="nav-item"><a class="nav-link" id="tab-email" data-bs-toggle="pill" href="#content-email" role="tab">이메일</a></li>
          <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#adminMenu" role="button" aria-expanded="false" aria-controls="adminMenu">관리자 ▾</a>
@@ -116,10 +109,11 @@
                 <a class="nav-link" data-bs-toggle="collapse" href="#adminRegSub" role="button" aria-expanded="false" aria-controls="adminRegSub">등록 ▾</a>
                 <div class="collapse ps-3" id="adminRegSub">
                   <ul class="nav flex-column">
-                  <li class="nav-item"><a class="nav-link" href="admin/faqWrite">자주묻는질문 등록</a></li>
+                  <li class="nav-item"><a class="nav-link" href="admin/faqManage">자주묻는질문 관리</a></li>
                     <li class="nav-item"><a class="nav-link" href="admin/vehicleManage">차량관리</a></li>
                     <li class="nav-item"><a class="nav-link" href="admin/meetingRoomManage">회의실관리</a></li>
                     <li class="nav-item"><a class="nav-link" href="admin/itemListManage">비품관리</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin/calendarManage">일정관리</a></li>
                   </ul>
                 </div>
               </li>

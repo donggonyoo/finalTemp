@@ -49,6 +49,7 @@
 <div class="container bg-white shadow-sm rounded p-5">
   <h4 class="mb-4 fw-bold">👤 회원 관리</h4>
 
+
   <!-- 필터 -->
   <form class="row g-3 mb-4" onsubmit="event.preventDefault(); filterRows();">
     <div class="col-md-3">
@@ -80,6 +81,7 @@
       <button type="submit" class="btn btn-outline-primary w-100">검색</button>
     </div>
   </form>
+  <a href="registerUser" class="btn btn-success w-100">+ 등록</a>
 
   <!-- 회원 테이블 -->
   <table class="table table-bordered">

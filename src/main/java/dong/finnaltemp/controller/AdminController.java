@@ -61,6 +61,25 @@ public class AdminController {
     public String vehicleRegisterForm(){
         return "admin/vehicleRegisterForm";
     }
+
+    @GetMapping("registerUser")
+    public String registerUser(){
+        return "admin/registerUser";
+    }
+    @GetMapping("calendarWrite")
+    public String calendarWrite(){
+        return"admin/calendarWrite";
+    }
+
+    @GetMapping("calendarManage")
+    public String calendarManage(){
+        return"admin/calendarManage";
+    }
+
+    @GetMapping("faqManage")
+    public String faqManage(){
+        return "admin/faqManage";
+    }
     
 
 }

@@ -17,6 +17,10 @@ public class BoardController {
     public String noticeDetail(){
         return "board/noticeDetail";
     }
+    @GetMapping("noticeEdit")
+    public String noticeEdit(){
+        return "board/noticeEdit";
+    }
     @GetMapping("noticeList")
     public String noticeList(){
         return "board/noticeList";
@@ -38,4 +42,5 @@ public class BoardController {
     public String questionWrite(){
         return "board/questionWrite";
     }
+
 }

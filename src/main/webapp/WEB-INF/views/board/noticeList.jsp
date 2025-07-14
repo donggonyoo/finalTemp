@@ -30,7 +30,7 @@
     </div>
 
     <!-- 검색 폼 -->
-    <form action="baord/noticeList" method="get" class="row g-2 mb-4">
+    <form action="board/noticeList" method="get" class="row g-2 mb-4">
         <div class="col-md-3">
             <select name="searchType" class="form-select">
                 <option value="title">제목</option>
@@ -73,7 +73,7 @@
                 <tr class="fixed-row">
                     <td><i class="bi bi-pin-angle-fill text-danger"></i> 100</td>
                     <td class="notice-title">
-                        <a href="board/noticeDetail?id=100" class="text-decoration-none text-dark">
+                        <a href="noticeDetail?id=100" class="text-decoration-none text-dark">
                             [공지] 그룹웨어 기능 개선 안내
                         </a>
                     </td>
@@ -86,7 +86,7 @@
                 <tr>
                     <td>99</td>
                     <td class="notice-title">
-                        <a href="noticeDetail.jsp?id=99" class="text-decoration-none">
+                        <a href="noticeDetail?id=99" class="text-decoration-none">
                             7월 신규 입사자 공지
                         </a>
                     </td>
@@ -97,7 +97,7 @@
                 <tr>
                     <td>98</td>
                     <td class="notice-title">
-                        <a href="noticeDetail.jsp?id=98" class="text-decoration-none">
+                        <a href="noticeDetail?id=98" class="text-decoration-none">
                             사내 보안 캠페인 안내
                         </a>
                     </td>

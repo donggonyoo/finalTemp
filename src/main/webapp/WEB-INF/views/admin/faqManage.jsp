@@ -70,6 +70,8 @@
     <h3 class="fw-bold mb-4">자주 묻는 질문 (FAQ)</h3>
 
 
+    <a href="faqWrite" class="btn btn-success w-100">+ 등록</a>
+
     <!-- FAQ 리스트 -->
     <div class="accordion" id="faqAccordion">
         <%
@@ -91,6 +93,18 @@
                 <div class="accordion-body">
                     <div class="faq-answer mb-2"><%= faq.answer %></div>
                     <div class="text-muted small">작성 부서: <%= faq.dept %></div>
+
+                    <%
+                        // 권한: 작성 부서 또는 LEVEL2 이상
+                        if (faq.dept.equals(loginDept) || loginLevel >= 2) {
+                    %>
+                        <div class="mt-2">
+                            <a href="faqEdit?id=<%=faq.id%>" class="btn btn-sm btn-outline-secondary">수정</a>
+                            <a href="faqDelete?id=<%=faq.id%>" class="btn btn-sm btn-outline-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                        </div>
+                    <%
+                        }
+                    %>
                 </div>
             </div>
         </div>

@@ -149,7 +149,7 @@
             if (loginUser.equals(writer) || userLevel >= 2) {
         %>
         <div class="d-flex gap-2">
-            <a href="noticeEdit.jsp?id=101" class="btn btn-outline-primary btn-custom">수정</a>
+            <a href="noticeEdit?id=101" class="btn btn-outline-primary btn-custom">수정</a>
             <a href="noticeDelete.jsp?id=101" class="btn btn-outline-danger btn-custom"
                onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
         </div>
