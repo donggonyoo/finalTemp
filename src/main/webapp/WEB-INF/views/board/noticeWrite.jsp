@@ -47,7 +47,7 @@
         <!-- 첨부파일 -->
         <div class="mb-4">
             <label for="uploadFile" class="form-label">첨부파일</label>
-            <input class="form-control" type="file" id="uploadFile" name="uploadFile">
+            <input class="form-control" type="file" id="uploadFile" name="uploadFile" multiple>
         </div>
 
         <!-- 버튼 영역 -->

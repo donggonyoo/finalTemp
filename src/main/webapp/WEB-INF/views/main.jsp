@@ -106,7 +106,7 @@
           <div class="collapse ps-3" id="adminMenu">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#adminRegSub" role="button" aria-expanded="false" aria-controls="adminRegSub">등록 ▾</a>
+                <a class="nav-link" data-bs-toggle="collapse" href="#adminRegSub" role="button" aria-expanded="false" aria-controls="adminRegSub">관리 ▾</a>
                 <div class="collapse ps-3" id="adminRegSub">
                   <ul class="nav flex-column">
                   <li class="nav-item"><a class="nav-link" href="admin/faqManage">자주묻는질문 관리</a></li>
@@ -114,11 +114,13 @@
                     <li class="nav-item"><a class="nav-link" href="admin/meetingRoomManage">회의실관리</a></li>
                     <li class="nav-item"><a class="nav-link" href="admin/itemListManage">비품관리</a></li>
                     <li class="nav-item"><a class="nav-link" href="admin/calendarManage">일정관리</a></li>
+                     <li class="nav-item"><a class="nav-link" href="admin/adminMemberManage">회원관리</a></li>
+                     <li class="nav-item"><a class="nav-link" href="admin/deptAuth">부서권한관리</a></li>
                   </ul>
                 </div>
               </li>
               <li class="nav-item"><a class="nav-link" href="admin/dashBoard">연차사용률</a></li>
-              <li class="nav-item"><a class="nav-link" href="admin/adminMemberManage">회원관리</a></li>
+
             </ul>
           </div>
         </li>

@@ -17,49 +17,32 @@
 <div class="container">
   <h3 class="mb-4 fw-bold">📊 연차 사용률 대시보드</h3>
 
+
+
   <!-- 필터 영역 -->
   <div class="filter-box shadow-sm">
     <form class="row g-3">
       <div class="col-md-3">
         <label class="form-label">연도</label>
-        <select class="form-select">
+        <select id="yearFilter" class="form-select" onchange="updateDashboard()">
           <option selected>2025</option>
           <option>2024</option>
         </select>
       </div>
       <div class="col-md-3">
-        <label class="form-label">분기</label>
-        <select class="form-select">
-          <option selected>전체</option>
-          <option>1분기</option>
-          <option>2분기</option>
-          <option>3분기</option>
-          <option>4분기</option>
-        </select>
-      </div>
-      <div class="col-md-3">
         <label class="form-label">부서</label>
-        <select class="form-select">
+        <select id="deptFilter" class="form-select" onchange="updateDashboard()">
           <option selected>전체</option>
           <option>개발팀</option>
-          <option>디자인팀</option>
-          <option>총무팀</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label class="form-label">직급</label>
-        <select class="form-select">
-          <option selected>전체</option>
-          <option>사원</option>
-          <option>주임</option>
-          <option>대리</option>
-          <option>과장</option>
+          <option>영업팀</option>
+          <option>고객지원팀</option>
+          <option>경영지원팀</option>
         </select>
       </div>
     </form>
   </div>
 
-  <!-- 차트 -->
+<!-- 차트 -->
   <div class="card p-4 mb-4">
     <canvas id="leaveChart" height="100"></canvas>
   </div>
@@ -70,7 +53,7 @@
       <h5 class="fw-bold">부서별 직원 연차 현황</h5>
       <button class="btn btn-sm btn-outline-success">엑셀 다운로드</button>
     </div>
-    <table class="table table-bordered text-center">
+    <table class="table table-bordered text-center" id="leaveTable">
       <thead>
         <tr>
           <th>부서</th>
@@ -82,44 +65,134 @@
           <th>사용률(%)</th>
         </tr>
       </thead>
-      <tbody>
-        <tr><td>개발팀</td><td>김동곤</td><td>대리</td><td>15</td><td>5</td><td>10</td><td>33%</td></tr>
-        <tr><td>디자인팀</td><td>최윤아</td><td>주임</td><td>15</td><td>9</td><td>6</td><td>60%</td></tr>
-        <tr><td>총무팀</td><td>박지성</td><td>사원</td><td>15</td><td>12</td><td>3</td><td>80%</td></tr>
-        <tr><td>개발팀</td><td>정호준</td><td>팀장</td><td>20</td><td>10</td><td>10</td><td>50%</td></tr>
-        <tr><td>디자인팀</td><td>이정은</td><td>과장</td><td>15</td><td>2</td><td>13</td><td>13%</td></tr>
+      <tbody id="leaveTableBody">
+        <!-- JS로 동적 렌더링 -->
       </tbody>
     </table>
   </div>
 </div>
 
 <script>
-  const ctx = document.getElementById('leaveChart').getContext('2d');
-  const leaveChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['개발팀', '디자인팀', '총무팀'],
-      datasets: [
-        {
-          label: '사용 연차',
-          data: [15, 11, 12], // 개발팀: 5+10, 디자인팀: 9+2, 총무팀: 12
-          backgroundColor: 'rgba(54, 162, 235, 0.7)'
-        },
-        {
-          label: '잔여 연차',
-          data: [20, 19, 3], // 개발팀: 10+10, 디자인팀: 6+13, 총무팀: 3
-          backgroundColor: 'rgba(255, 99, 132, 0.7)'
-        }
+  // 연도별 부서별 데이터
+  const rawData = {
+    "2025": {
+      "개발팀": [
+        { name: "김동곤", grade: "대리", total: 15, used: 5 },
+        { name: "정호준", grade: "팀장", total: 20, used: 10 }
+      ],
+      "영업팀": [
+        { name: "최윤아", grade: "주임", total: 15, used: 9 }
+      ],
+      "고객지원팀": [
+        { name: "박지성", grade: "사원", total: 15, used: 12 }
+      ],
+      "경영지원팀": [
+        { name: "이정은", grade: "과장", total: 15, used: 2 }
       ]
     },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: true }
-      }
+    "2024": {
+      "개발팀": [
+        { name: "김동곤", grade: "대리", total: 15, used: 7 }
+      ],
+      "영업팀": [
+        { name: "최윤아", grade: "주임", total: 15, used: 11 }
+      ],
+      "고객지원팀": [
+        { name: "박지성", grade: "사원", total: 15, used: 8 }
+      ],
+      "경영지원팀": [
+        { name: "이정은", grade: "과장", total: 15, used: 4 }
+      ]
     }
-  });
+  };
+
+  let chartInstance = null;
+
+  function updateDashboard() {
+    const year = document.getElementById("yearFilter").value;
+    const dept = document.getElementById("deptFilter").value;
+
+    const yearData = rawData[year];
+    const filteredDepts = dept === "전체" ? Object.keys(yearData) : [dept];
+
+    // 테이블 렌더링
+    const tbody = document.getElementById("leaveTableBody");
+    tbody.innerHTML = "";
+    filteredDepts.forEach(function(team) {
+      yearData[team].forEach(function(emp) {
+        const remain = emp.total - emp.used;
+        const percent = Math.round((emp.used / emp.total) * 100);
+        const row =
+          "<tr>" +
+            "<td>" + team + "</td>" +
+            "<td>" + emp.name + "</td>" +
+            "<td>" + emp.grade + "</td>" +
+            "<td>" + emp.total + "</td>" +
+            "<td>" + emp.used + "</td>" +
+            "<td>" + remain + "</td>" +
+            "<td>" + percent + "%</td>" +
+          "</tr>";
+        tbody.insertAdjacentHTML("beforeend", row);
+      });
+    });
+
+    // 차트 데이터 준비
+    const chartLabels = filteredDepts;
+    const usedData = [];
+    const remainData = [];
+
+    chartLabels.forEach(function(team) {
+      const teamData = yearData[team];
+      let usedSum = 0, remainSum = 0;
+      teamData.forEach(function(emp) {
+        usedSum += emp.used;
+        remainSum += (emp.total - emp.used);
+      });
+      usedData.push(usedSum);
+      remainData.push(remainSum);
+    });
+
+    // 차트 렌더링
+    if (chartInstance) chartInstance.destroy();
+    const ctx = document.getElementById("leaveChart").getContext("2d");
+    chartInstance = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: chartLabels,
+        datasets: [
+          {
+            label: "사용 연차",
+            data: usedData,
+            backgroundColor: "rgba(54, 162, 235, 0.7)",
+            stack: "연차"
+          },
+          {
+            label: "잔여 연차",
+            data: remainData,
+            backgroundColor: "rgba(255, 99, 132, 0.7)",
+            stack: "연차"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          tooltip: { mode: "index", intersect: false },
+          legend: { position: "top" }
+        },
+        scales: {
+          x: { stacked: true },
+          y: { stacked: true, beginAtZero: true }
+        }
+      }
+    });
+  }
+
+  // 초기 렌더링
+  window.onload = updateDashboard;
 </script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

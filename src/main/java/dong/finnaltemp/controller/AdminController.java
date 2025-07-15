@@ -80,6 +80,16 @@ public class AdminController {
     public String faqManage(){
         return "admin/faqManage";
     }
+
+    @GetMapping("deptAuth")
+    public String deptAuth(){
+        return "admin/deptAuth";
+    }
+
+    @GetMapping("commTypeManage")
+    public String CommTypeManage(){
+        return "admin/commTypeManage";
+    }
     
 
 }
