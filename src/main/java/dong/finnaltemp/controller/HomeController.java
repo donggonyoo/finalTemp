@@ -20,4 +20,9 @@ public class HomeController {
     public String profile(){
         return "profile";
     }
+    @GetMapping("/homeIndex")
+    public String homeIndex ()
+    {
+        return "homeIndex";
+    }
 }
